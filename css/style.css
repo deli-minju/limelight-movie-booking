@@ -1,0 +1,20 @@
+.layout-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1425px;
+    min-height: 100vh; 
+    margin: 0 auto;
+    background-color: #000;
+}
+
+/* 메인 콘텐츠 영역 (사이드바 제외 나머지) */
+.main-content {
+    flex-grow: 1;
+    height: auto; 
+    min-height: 100vh;
+    background: linear-gradient(124deg, #080808 0%, #222 100%);
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
