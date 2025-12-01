@@ -1,0 +1,143 @@
+.login-page-bg {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 105px;
+    min-height: 100%;
+    box-sizing: border-box;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 562px;
+    padding: 74px 50px 50px 50px;
+    background: #1F1F1F;
+    border: 1px solid #333333;
+    border-radius: 16px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+}
+
+.login-title {
+    color: #cfff04;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin: 0 0 40px 0;
+    text-align: center;
+}
+
+.login-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-field {
+    width: 100%;
+    height: 50px;
+    background: #333333;
+    border: 1px solid #444444;
+    border-radius: 8px;
+    padding: 0 16px;
+    
+    color: #eaeaea;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 15px;
+    box-sizing: border-box;
+    transition: all 0.3s;
+}
+.input-field:focus {
+    border-color: #cfff04;
+    outline: none;
+    box-shadow: 0 0 8px rgba(207, 255, 4, 0.2);
+}
+.input-field::placeholder {
+    color: #7c7c7c;
+    transition: color 0.3s;
+}
+.input-field:focus::placeholder {
+    color: transparent;
+}
+
+.btn-login {
+    width: 100%;
+    height: 54px;
+    margin-top: 24px;
+    background: linear-gradient(90deg, #cfff04, #b6e710);
+    border: none;
+    border-radius: 8px;
+    
+    color: #2c2c2c;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn-login:hover {
+    transform: translateY(-1.5px);
+    box-shadow: 0 5px 10px rgba(207, 255, 4, 0.2);
+}
+
+.signup-link-area {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+.btn-signup {
+    color: #eaeaea;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    position: relative;
+}
+
+.btn-signup::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #cfff04;
+    transition: width 0.3s;
+}
+
+.btn-signup:hover {
+    color: #cfff04;
+}
+
+.btn-signup:hover::after {
+    width: 100%;
+}
+
+.input-field.error {
+    border-color: #F33F3F !important;
+    color: #eaeaea;
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* 크롬 자동완성 배경색 강제 제거 */
+.input-field:-webkit-autofill,
+.input-field:-webkit-autofill:hover, 
+.input-field:-webkit-autofill:focus, 
+.input-field:-webkit-autofill:active {
+    -webkit-text-fill-color: #EAEAEA !important;
+    -webkit-box-shadow: 0 0 0px 1000px #333333 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
