@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;800&display=swap');
+
+@font-face {
+    font-family: 'Basement Grotesque';
+    src: url('../fonts/BasementGrotesque-Black_v1.202.woff2') format('woff2');
+    src: url('../fonts/BasementGrotesque-Black_v1.202.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    background-color: #000;
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+}
+
+.sidebar-container {
+    width: 320px;
+    min-height: 100vh;
+    background: #080808;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 28px;
+    box-sizing: border-box;
+    border-right: 1px solid #333;
+    flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.logo-area {
+    margin-bottom: 40px;
+}
+
+.logo-img {
+    width: 153px;
+    height: auto;
+    display: block;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-bottom: 1px solid #7c7c7c;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #080808;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 10px 12px;
+    gap: 12px;
+    color: #EAEAEA;
+    transition: border-color 0.3s;
+}
+.search-input-wrapper:focus-within {
+    border-color: #CFFF04;
+}
+
+.search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.search-input {
+    background: transparent;
+    border: none;
+    color: #eaeaea;
+    font-size: 15px;
+    width: 100%;
+    outline: none; 
+    box-shadow: none;
+}
+.search-input:focus::placeholder {
+    opacity: 0;
+    color: transparent;
+    transition: opacity 0.2s;
+}
+.search-input::placeholder {
+    color: #8e8e8e;
+    transition: opacity 0.2s;
+}
+
+/* 브라우저 자동완성 시 배경이 하얗게 변하는 것 방지 */
+.search-input:-webkit-autofill,
+.search-input:-webkit-autofill:hover, 
+.search-input:-webkit-autofill:focus, 
+.search-input:-webkit-autofill:active {
+    -webkit-text-fill-color: #EAEAEA;
+    -webkit-box-shadow: 0 0 0px 1000px #070707 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.menu-item a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #eaeaea;
+    transition: all 0.3s;
+}
+
+.menu-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: #EAEAEA;
+}
+
+.menu-item.active a {
+    background: linear-gradient(90deg, #cfff04, #b6e710);
+    color: #2c2c2c;
+    font-weight: 600;
+}
+.menu-item.active .menu-icon {
+    color: #2c2c2c; 
+}
+
+.my-lists-area {
+    flex-grow: 1;
+}
+.section-title {
+    color: #eaeaea;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+.lists-wrapper {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    color: #eaeaea;
+    font-size: 15px;
+}
+.list-icon {
+    display: flex;
+    align-items: center;
+}
+
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.btn-edit, .btn-member-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+.btn-edit {
+    background: linear-gradient(90deg, #cfff04, #b6e710);
+    border: none;
+    color: #2c2c2c;
+    gap: 8px;
+}
+.btn-edit .btn-icon { color: #2c2c2c; display: flex; align-items: center; }
+
+.btn-member-list {
+    background: transparent;
+    border: 1px solid #CFFF04;
+    color: #CFFF04;
+}
+
+.user-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-top: 20px;
+    border-top: 1px solid #7c7c7c;
+}
+.profile-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    background-color: #333;
+}
+.user-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.u-name {
+    color: #eaeaea;
+    font-family: 'Basement Grotesque', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+}
+.u-email {
+    color: #8e8e8e;
+    font-size: 12px;
+}
+.btn-logout {
+    color: #eaeaea;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+    display: flex;
+}
+.btn-logout:hover {
+    opacity: 1;
+    color: #F33F3F;
+}
