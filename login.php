@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 if (isset($_SESSION['userid'])) {
     echo "<script>
         alert('이미 로그인되어 있습니다.');
-        location.href = 'home.php';
+        location.href = 'index.php';
     </script>";
     exit;
 }

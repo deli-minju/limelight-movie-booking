@@ -5,7 +5,7 @@ include 'inc/db_conn.php';
 $userid = $_POST['userid'];
 $password = $_POST['password'];
 
-// SQL Injection 방지 (특수문자 처리)
+// SQL Injection 방지
 $userid = mysqli_real_escape_string($conn, $userid);
 
 $sql = "SELECT * FROM users WHERE userid = '$userid'";
@@ -22,7 +22,7 @@ if (mysqli_num_rows($result) === 1) {
         $_SESSION['role'] = $row['role'];
         
         echo "<script>
-            location.href = 'home.php';
+            location.href = 'index.php';
         </script>";       
     } else {
         echo "<script>
