@@ -59,10 +59,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <nav class="nav-menu">
         <div class="search-box">
-            <div class="search-input-wrapper">
-                <span class="search-icon"><?= getIconSearch() ?></span>
-                <input type="text" placeholder="Search" class="search-input">
-            </div>
+            <form action="search.php" method="get" class="search-form">
+                <div class="search-input-wrapper">
+                    <span class="search-icon"><?= getIconSearch() ?></span>
+                    <input type="text" name="q" placeholder="Search" class="search-input" autocomplete="off">
+                </div>
+            </form>
         </div>
 
         <ul class="menu-list">
