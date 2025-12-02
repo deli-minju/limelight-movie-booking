@@ -33,20 +33,26 @@ if (isset($_SESSION['userid'])) {
             $is_admin = true;
         }
 
-        $sql_wish = "SELECT m.title 
+        $sql_wish = "SELECT m.title, m.id as movie_id 
                      FROM wishlist w 
                      JOIN movies m ON w.movie_id = m.id 
                      WHERE w.user_id = '$user_db_id' 
-                     ORDER BY w.created_at DESC 
-                     LIMIT 5";
+                     ORDER BY w.created_at DESC";
         $result_wish = mysqli_query($conn, $sql_wish);
     }
 }
 
 $current_page = basename($_SERVER['PHP_SELF']); 
-?><aside class="sidebar-container">
+?>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/sidebar.css">
+
+<div id="edit-overlay" class="edit-overlay"></div>
+
+<aside class="sidebar-container" id="sidebar">
     <div class="logo-area">
-        <a href="home.php">
+        <a href="index.php">
             <img src="img/logo.png" alt="LimeLight" class="logo-img">
         </a>
     </div>
@@ -60,21 +66,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
 
         <ul class="menu-list">
-            <li class="menu-item <?= ($current_page == 'home.php' || $current_page == '') ? 'active' : '' ?>">
-                <a href="home.php">
+            <li class="menu-item <?= ($current_page == 'index.php' || $current_page == '') ? 'active' : '' ?>">
+                <a href="index.php">
                     <span class="menu-icon"><?= getIconHome() ?></span>
                     <span class="menu-text">홈</span>
                 </a>
             </li>
-
             <li class="menu-item <?= ($current_page == 'reservation.php') ? 'active' : '' ?>">
                 <a href="reservation.php">
                     <span class="menu-icon"><?= getIconTicket() ?></span>
                     <span class="menu-text">예매</span>
                 </a>
             </li>
-
-            <!-- 로그인 상태에 따른 메뉴 분기 -->
             <?php if ($is_login): ?>
                 <li class="menu-item <?= ($current_page == 'profile.php') ? 'active' : '' ?>">
                     <a href="profile.php">
@@ -83,7 +86,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </a>
                 </li>
             <?php else: ?>
-                <!-- 비로그인 시: 로그인 페이지로 이동 -->
                 <li class="menu-item <?= ($current_page == 'login.php' || $current_page == 'register.php') ? 'active' : '' ?>">
                     <a href="login.php">
                         <span class="menu-icon"><?= getIconProfile() ?></span>
@@ -94,18 +96,25 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </ul>
     </nav>
 
-    <!-- MY LISTS (로그인 시에만 DB 조회 결과 표시) -->
     <?php if ($is_login): ?>
-    <div class="my-lists-area">
+    <div class="my-lists-area" id="my-lists-area">
         <div class="section-title">MY LISTS</div>
-        <ul class="lists-wrapper">
+        
+        <ul class="lists-wrapper" id="wishlist-ul">
             <?php 
             if ($result_wish && mysqli_num_rows($result_wish) > 0) {
                 while ($row_wish = mysqli_fetch_assoc($result_wish)) { 
             ?>
-                <li class="list-item">
-                    <span class="list-icon"><?= getIconHeart() ?></span>
-                    <span class="list-text">
+                <li class="list-item" data-id="<?= $row_wish['movie_id'] ?>">               
+                    <span class="list-icon icon-heart-view">
+                        <?= getIconHeart() ?>
+                    </span>
+
+                    <span class="list-icon icon-delete-btn" onclick="deleteWishItem(<?= $row_wish['movie_id'] ?>, this)">
+                        <?= getIconDelete() ?>
+                    </span>
+
+                    <span class="list-text" title="<?= $row_wish['title'] ?>">
                         <?= $row_wish['title'] ?>
                     </span>
                 </li>
@@ -113,19 +122,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 } 
             } else { 
             ?>
-                <li class="list-item" style="color: #777; font-size: 13px; justify-content: center;">
+                <li class="list-item empty-msg" style="color: #777; font-size: 13px; justify-content: center;">
                     아직 찜한 영화가 없어요.
                 </li>
             <?php } ?>
         </ul>
 
         <div class="cta-buttons">
-            <button class="btn-edit" onclick="location.href='wishlist.php'">
+            <button class="btn-edit" id="btn-edit-list" onclick="toggleEditMode()">
                 <span class="btn-icon"><?= getIconEdit() ?></span>
-                리스트 편집
+                <span class="btn-text">리스트 편집</span>
             </button>
             
-            <!-- 관리자일 경우에만 보이는 버튼 -->
             <?php if ($is_admin): ?>
             <a href="member-list.php" class="btn-member-list">
                 회원 목록 보기
@@ -135,20 +143,18 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
     <?php endif; ?>
 
-    <!-- 사용자 하단 정보 (로그인 시에만 표시) -->
     <?php if ($is_login): ?>
     <div class="user-footer">
-        <!-- DB에서 가져온 프로필 이미지 경로 사용 -->
         <div class="profile-img" style="background-image: url('<?= $user_img ?>');"></div>
-        
         <div class="user-info">
             <span class="u-name"><?= $user_name ?></span>
             <span class="u-email"><?= $user_email ?></span>
         </div>
-        
         <a href="logout.php" class="btn-logout" title="로그아웃">
             <?= getIconLogout() ?>
         </a>
     </div>
     <?php endif; ?>
 </aside>
+
+<script src="js/sidebar.js"></script>
