@@ -20,7 +20,12 @@ function getIconHeart() {
 }
 
 function getIconDelete() {
-    return '<svg class="icon icon-delete" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_delete)"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.5C8.95001 0.5 6.02494 1.7116 3.86827 3.86827C1.7116 6.02494 0.5 8.95001 0.5 12C0.5 15.05 1.7116 17.9751 3.86827 20.1317C6.02494 22.2884 8.95001 23.5 12 23.5C15.05 23.5 17.9751 22.2884 20.1317 20.1317C22.2884 17.9751 23.5 15.05 23.5 12C23.5 8.95001 22.2884 6.02494 20.1317 3.86827C17.9751 1.7116 15.05 0.5 12 0.5ZM5.42857 11.1786V12.8214H18.5714V11.1786H5.42857Z" fill="#F33F3F"/></g><defs><clipPath id="clip0_delete"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>';
+    return '<svg class="icon icon-delete" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_delete)">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 0.5C8.95001 0.5 6.02494 1.7116 3.86827 3.86827C1.7116 6.02494 0.5 8.95001 0.5 12C0.5 15.05 1.7116 17.9751 3.86827 20.1317C6.02494 22.2884 8.95001 23.5 12 23.5C15.05 23.5 17.9751 22.2884 20.1317 20.1317C22.2884 17.9751 23.5 15.05 23.5 12C23.5 8.95001 22.2884 6.02494 20.1317 3.86827C17.9751 1.7116 15.05 0.5 12 0.5ZM5.42857 11.1786V12.8214H18.5714V11.1786H5.42857Z" fill="#F33F3F"/>
+            </g>
+            <defs><clipPath id="clip0_delete"><rect width="24" height="24" fill="white"/></clipPath></defs>
+            </svg>';
 }
 
 function getIconEdit() {
@@ -29,5 +34,12 @@ function getIconEdit() {
 
 function getIconLogout() {
     return '<svg class="icon icon-logout" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_logout)"><path d="M1.616 16C1.15533 16 0.771 15.846 0.463 15.538C0.155 15.23 0.000666667 14.8453 0 14.384V1.616C0 1.15533 0.154333 0.771 0.463 0.463C0.771667 0.155 1.156 0.000666667 1.616 0H8.019V1H1.616C1.462 1 1.32067 1.064 1.192 1.192C1.06333 1.32 0.999333 1.46133 1 1.616V14.385C1 14.5383 1.064 14.6793 1.192 14.808C1.32 14.9367 1.461 15.0007 1.615 15H8.019V16H1.616ZM12.462 11.539L11.76 10.819L14.079 8.5H5.192V7.5H14.079L11.759 5.18L12.461 4.462L16 8L12.462 11.539Z" fill="currentColor"/></g><defs><clipPath id="clip0_logout"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>';
+}
+
+function getIconHeartButton() {
+    return '<svg class="icon icon-heart-btn" width="32" height="32" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="10" cy="10" r="10" fill="#000000" fill-opacity="0.5"/>
+            <path class="heart-path" d="M10.0003 16.655L9.02762 15.7695C5.57283 12.6367 3.29199 10.5638 3.29199 8.0348C3.29199 5.96192 4.91541 4.34521 6.98158 4.34521C8.14883 4.34521 9.26912 4.88859 10.0003 5.74055C10.7315 4.88859 11.8518 4.34521 13.0191 4.34521C15.0852 4.34521 16.7087 5.96192 16.7087 8.0348C16.7087 10.5638 14.4278 12.6367 10.973 15.7695L10.0003 16.655Z" fill="white"/>
+            </svg>';
 }
 ?>
