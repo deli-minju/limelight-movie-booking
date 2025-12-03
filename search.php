@@ -3,11 +3,13 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include 'inc/db_conn.php';
-include_once 'inc/icons.php';
+include_once 'inc/icons.php'; 
 
+// 검색어 받기
 $keyword = isset($_GET['q']) ? $_GET['q'] : '';
 $search_term = trim($keyword); 
 
+// 로그인 유저 확인
 $user_id = isset($_SESSION['userid']) ? $_SESSION['userid'] : null;
 $user_db_id = 0;
 
@@ -19,6 +21,7 @@ if ($user_id) {
     }
 }
 
+// 좋아요 확인 함수
 function isLiked($conn, $user_db_id, $movie_id) {
     if ($user_db_id == 0) return false;
     $sql = "SELECT id FROM wishlist WHERE user_id = $user_db_id AND movie_id = $movie_id";
@@ -26,6 +29,7 @@ function isLiked($conn, $user_db_id, $movie_id) {
     return mysqli_num_rows($result) > 0;
 }
 
+// 검색 로직
 $search_nospace = str_replace(' ', '', $search_term);
 $search_safe = mysqli_real_escape_string($conn, $search_nospace);
 
@@ -71,14 +75,20 @@ $today = date("Y-m-d");
                     while($row = mysqli_fetch_assoc($result)): 
                         $is_liked = isLiked($conn, $user_db_id, $row['id']);
                         $active_class = $is_liked ? 'active' : '';
+                        $movie_title = addslashes($row['title']);
+                        if ($user_id) {
+                            $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
+                        } else {
+                            $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
+                        }
                 ?>
                     <div class="movie-card">
                         <div class="poster-wrapper">
                             <img src="<?= $row['poster_img'] ?>" 
                                  alt="<?= $row['title'] ?>" 
                                  class="poster-img click-trigger"
-                                 onclick="openReviewModal(<?= $row['id'] ?>, '<?= addslashes($row['title']) ?>')">
-                            
+                                 onclick="<?= $onclick_action ?>">
+
                             <?php if ($user_id): ?>
                                 <button class="btn-like <?= $active_class ?>" 
                                         onclick="toggleLike(this, <?= $row['id'] ?>)">
