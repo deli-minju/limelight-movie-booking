@@ -1,11 +1,9 @@
 <?php
-// 서버 시간을 한국 시간으로 설정
-date_default_timezone_set('Asia/Seoul');
-
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 include 'inc/db_conn.php';
+include_once 'inc/icons.php';
 
 $keyword = isset($_GET['q']) ? $_GET['q'] : '';
 $search_term = trim($keyword); 
@@ -21,7 +19,6 @@ if ($user_id) {
     }
 }
 
-// 좋아요 확인 함수
 function isLiked($conn, $user_db_id, $movie_id) {
     if ($user_db_id == 0) return false;
     $sql = "SELECT id FROM wishlist WHERE user_id = $user_db_id AND movie_id = $movie_id";
@@ -29,7 +26,6 @@ function isLiked($conn, $user_db_id, $movie_id) {
     return mysqli_num_rows($result) > 0;
 }
 
-// 검색 로직
 $search_nospace = str_replace(' ', '', $search_term);
 $search_safe = mysqli_real_escape_string($conn, $search_nospace);
 
@@ -40,7 +36,6 @@ $sql = "SELECT * FROM movies
 $result = mysqli_query($conn, $sql);
 $count = mysqli_num_rows($result);
 
-// 한국 시간 기준 오늘 날짜 구하기
 $today = date("Y-m-d");
 ?>
 
@@ -79,7 +74,10 @@ $today = date("Y-m-d");
                 ?>
                     <div class="movie-card">
                         <div class="poster-wrapper">
-                            <img src="<?= $row['poster_img'] ?>" alt="<?= $row['title'] ?>" class="poster-img">
+                            <img src="<?= $row['poster_img'] ?>" 
+                                 alt="<?= $row['title'] ?>" 
+                                 class="poster-img click-trigger"
+                                 onclick="openReviewModal(<?= $row['id'] ?>, '<?= addslashes($row['title']) ?>')">
                             
                             <?php if ($user_id): ?>
                                 <button class="btn-like <?= $active_class ?>" 
@@ -92,7 +90,6 @@ $today = date("Y-m-d");
                         <div class="movie-info">
                             <h3 class="movie-title"><?= $row['title'] ?></h3>
                             
-                            <!-- 개봉일이 오늘보다 미래일 때만 날짜 표시 -->
                             <?php if ($row['release_date'] > $today): ?>
                                 <p class="release-date"><?= $row['release_date'] ?> 개봉</p>
                             <?php endif; ?>
@@ -110,6 +107,27 @@ $today = date("Y-m-d");
             </div>
 
         </main>
+    </div>
+
+    <div id="review-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-movie-title"></h2>
+                <button class="btn-close" onclick="closeReviewModal()">
+                    <?= getIconClose() ?>
+                </button>
+            </div>
+            
+            <div class="review-input-area">
+                <textarea id="review-text" placeholder="이 영화에 대한 한줄평을 남겨주세요. (최대 50자)" maxlength="50"></textarea>
+                <button class="btn-submit-review" onclick="submitReview()">등록</button>
+            </div>
+
+            <div class="review-list-area">
+                <h3 class="review-list-title">관람객 한줄평</h3>
+                <div id="review-list-container"></div>
+            </div>
+        </div>
     </div>
 
     <script src="js/home.js"></script> 
