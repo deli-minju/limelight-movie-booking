@@ -74,12 +74,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     <span class="menu-text">홈</span>
                 </a>
             </li>
-            <li class="menu-item <?= ($current_page == 'reservation.php') ? 'active' : '' ?>">
+            
+            <li class="menu-item <?= ($current_page == 'reservation.php' || $current_page == 'booking_list.php') ? 'active' : '' ?>">
                 <a href="reservation.php">
                     <span class="menu-icon"><?= getIconTicket() ?></span>
                     <span class="menu-text">예매</span>
                 </a>
             </li>
+
             <?php if ($is_login): ?>
                 <li class="menu-item <?= ($current_page == 'profile.php') ? 'active' : '' ?>">
                     <a href="profile.php">
@@ -107,7 +109,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             if ($result_wish && mysqli_num_rows($result_wish) > 0) {
                 while ($row_wish = mysqli_fetch_assoc($result_wish)) { 
             ?>
-                <li class="list-item" data-id="<?= $row_wish['movie_id'] ?>">               
+                <li class="list-item" data-id="<?= $row_wish['movie_id'] ?>">
                     <span class="list-icon icon-heart-view">
                         <?= getIconHeart() ?>
                     </span>

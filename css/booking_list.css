@@ -1,0 +1,139 @@
+.booking-list-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 90%;
+}
+
+.page-sub-title {
+    color: #EAEAEA;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    border-left: 4px solid #CFFF04;
+    padding-left: 15px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ticket-card {
+    display: flex;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 20px;
+    gap: 25px;
+    transition: border-color 0.3s;
+}
+
+.ticket-card:hover {
+    border-color: #555;
+}
+
+.poster-area {
+    width: 100px;
+    flex-shrink: 0;
+}
+.poster-area img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.info-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.ticket-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.movie-title {
+    font-size: 22px;
+    color: #CFFF04;
+    margin: 0 0 15px 0;
+    font-weight: 800;
+}
+
+.detail-info p {
+    margin: 6px 0;
+    color: #ccc;
+    font-size: 15px;
+}
+
+.detail-info strong {
+    display: inline-block;
+    width: 50px;
+    color: #888;
+    font-weight: 500;
+}
+
+.highlight-time {
+    color: #fff;
+    font-weight: 600;
+}
+
+.action-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    min-width: 120px;
+    border-left: 1px solid #333;
+    padding-left: 25px;
+}
+
+.total-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #EAEAEA;
+    font-family: 'Basement Grotesque', sans-serif;
+}
+
+.btn-cancel {
+    background: transparent;
+    border: 1px solid #F33F3F;
+    color: #F33F3F;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #F33F3F;
+    color: #fff;
+}
+
+.no-history {
+    text-align: center;
+    padding: 100px 0;
+    color: #777;
+}
+.no-history p { margin-bottom: 20px; font-size: 16px; }
+
+.btn-go-reserve {
+    display: inline-block;
+    background: linear-gradient(90deg, #cfff04, #b6e710);
+    color: #000;
+    padding: 12px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: transform 0.2s;
+}
+.btn-go-reserve:hover { transform: translateY(-2px); }
