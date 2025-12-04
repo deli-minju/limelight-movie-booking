@@ -27,9 +27,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // 지점 삭제
 if (isset($_GET['delete_id'])) {
     $id = (int)$_GET['delete_id'];
-    $sql = "DELETE FROM theaters WHERE id = $id";
+    $sql = "UPDATE theaters SET is_deleted = 1 WHERE id = $id";
+    
     if(mysqli_query($conn, $sql)) {
-        echo "<script>alert('삭제되었습니다.'); location.href='admin_theaters.php';</script>";
+        echo "<script>alert('지점이 삭제되었습니다.'); location.href='admin_theaters.php';</script>";
     } else {
         echo "<script>alert('삭제 실패: " . mysqli_error($conn) . "'); history.back();</script>";
     }
@@ -37,7 +38,7 @@ if (isset($_GET['delete_id'])) {
 }
 
 // 지점 목록 조회
-$result = mysqli_query($conn, "SELECT * FROM theaters ORDER BY id ASC");
+$result = mysqli_query($conn, "SELECT * FROM theaters WHERE is_deleted = 0 ORDER BY id ASC");
 ?>
 
 <!DOCTYPE html>
@@ -59,7 +60,7 @@ $result = mysqli_query($conn, "SELECT * FROM theaters ORDER BY id ASC");
                 
                 <!-- 제목 -->
                 <h2 class="admin-page-title">지점 관리</h2>
-                <p class="admin-desc">지점을 등록하거나 삭제합니다.</p>
+                <p class="admin-desc">지점 등록 / 삭제</p>
 
                 <!-- 지점 등록 폼 -->
                 <div class="form-box">
@@ -95,7 +96,7 @@ $result = mysqli_query($conn, "SELECT * FROM theaters ORDER BY id ASC");
                             <td><?= htmlspecialchars($row['location']) ?></td>
                             <td>
                                 <!-- 삭제 버튼 -->
-                                <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?\n(해당 지점의 모든 상영 시간표가 함께 삭제됩니다)')">삭제</a>
+                                <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?'">삭제</a>
                             </td>
                         </tr>
                         <?php endwhile; ?>

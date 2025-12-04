@@ -52,17 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // 영화 삭제
 if (isset($_GET['delete_id'])) {
     $id = (int)$_GET['delete_id'];
-    $sql_img = "SELECT poster_img FROM movies WHERE id = $id";
-    $res_img = mysqli_query($conn, $sql_img);
-    if($row_img = mysqli_fetch_assoc($res_img)) {
-        if(file_exists($row_img['poster_img'])) {
-            unlink($row_img['poster_img']); // 파일 삭제
-        }
-    }
+    $sql_delete = "UPDATE movies SET is_deleted = 1 WHERE id = $id";
 
-    // DB 데이터 삭제
-    mysqli_query($conn, "DELETE FROM movies WHERE id=$id");
-    echo "<script>alert('삭제되었습니다.'); location.href='admin_movies.php';</script>";
+    if (mysqli_query($conn, $sql_delete)) {
+        echo "<script>alert('영화가 삭제되었습니다.'); location.href='admin_movies.php';</script>";
+    } else {
+        echo "<script>alert('삭제 실패: " . mysqli_error($conn) . "'); history.back();</script>";
+    }
     exit;
 }
 
@@ -81,7 +77,7 @@ if (isset($_GET['status_id']) && isset($_GET['new_status'])) {
 }
 
 // 영화 목록 조회 - 최신 등록순
-$result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
+$result = mysqli_query($conn, "SELECT * FROM movies WHERE is_deleted = 0 ORDER BY id DESC");
 ?>
 
 <!DOCTYPE html>
@@ -166,14 +162,14 @@ $result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
                                     <?php if($row['is_showing']): ?>
                                     <a href="?status_id=<?= $row['id'] ?>&new_status=0" 
                                        class="btn-status btn-status-off" 
-                                       onclick="return confirm('정말 종영 처리하시겠습니까?\n(상영 시간표에서 제외됩니다)')">종영 처리</a>
+                                       onclick="return confirm('정말 종영 처리하시겠습니까?\n상영 시간표에서 제외됩니다')">종영 처리</a>
                                     <?php else: ?>
                                     <a href="?status_id=<?= $row['id'] ?>&new_status=1" 
                                        class="btn-status btn-status-on" 
                                        onclick="return confirm('상영중으로 변경하시겠습니까?')">상영 재개</a>
                                     <?php endif; ?>
 
-                                    <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?\n(관련된 상영 시간표 및 예매 내역도 모두 삭제됩니다)')">삭제</a>
+                                    <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</a>
                                 </div>
                             </td>
                         </tr>
