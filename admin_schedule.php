@@ -9,9 +9,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     exit;
 }
 
-// 날짜 제한 설정 (오늘 + 7일)
+// 삭제 제한 날짜 (오늘 + 7일)
 $today = date('Y-m-d');
-$lock_date = date('Y-m-d', strtotime('+7 days')); 
+$lock_date = date('Y-m-d', strtotime('+7 days'));
+
+// 등록 시작 날짜 (오늘 + 1일)
+$start_date = date('Y-m-d', strtotime('+1 day'));
 
 // 스케줄 등록
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] == 'add') {
@@ -20,6 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     $screen_name = mysqli_real_escape_string($conn, $_POST['screen_name']);
     $date = $_POST['date'];
     $time = $_POST['time'];
+
+    $sql_release = "SELECT release_date FROM movies WHERE id = $movie_id";
+    $res_release = mysqli_query($conn, $sql_release);
+    if ($res_release && $row_release = mysqli_fetch_assoc($res_release)) {
+        $release_date = $row_release['release_date'];
+
+        if ($date < $release_date) {
+            echo "<script>alert('{$release_date} 이전에 상영 스케줄을 등록할 수 없습니다.'); history.back();</script>";
+            exit;
+        }
+    }
     
     $start_time = "$date $time:00";
 
@@ -57,8 +71,8 @@ if (isset($_GET['delete_id'])) {
 }
 
 // 데이터 불러오기
-$movies = mysqli_query($conn, "SELECT * FROM movies WHERE is_showing = 1 ORDER BY title ASC");
-$theaters = mysqli_query($conn, "SELECT * FROM theaters ORDER BY name ASC");
+$movies = mysqli_query($conn, "SELECT * FROM movies WHERE is_showing = 1 AND is_deleted = 0 ORDER BY title ASC");
+$theaters = mysqli_query($conn, "SELECT * FROM theaters WHERE is_deleted = 0 ORDER BY name ASC");
 
 // 수정 가능한 스케줄만 조회하여 리스트에 표시
 $schedules = mysqli_query($conn, "SELECT s.*, m.title, t.name as theater_name 
@@ -102,8 +116,11 @@ $schedules = mysqli_query($conn, "SELECT s.*, m.title, t.name as theater_name
             <div class="admin-content">
                 <h2 class="admin-page-title">스케줄 관리</h2>
                 <p class="admin-desc">
-                    상영 시간표를 편성하거나 삭제합니다.<br>
-                    <span style="color:#666; font-size:13px;">* <strong style="color:#F33F3F"><?= $lock_date ?></strong> 이후의 스케줄만 등록 및 삭제 가능합니다.</span>
+                    상영 시간표 편성 / 삭제<br>
+                    <span style="color:#666; font-size:13px;">
+                        * 등록은 <strong style="color:#CFFF04"><?= $start_date ?></strong> 스케줄부터 가능합니다.
+                        <br>* 삭제는 <strong style="color:#F33F3F"><?= $lock_date ?></strong> 이후의 스케줄만 가능합니다.
+                    </span>
                 </p>
 
                 <div class="form-box">
@@ -130,7 +147,7 @@ $schedules = mysqli_query($conn, "SELECT s.*, m.title, t.name as theater_name
                         
                         <div class="input-row">
                             <input type="text" name="screen_name" placeholder="상영관 (예: 1관 IMAX)" required>
-                            <input type="date" name="date" min="<?= $lock_date ?>" required>
+                            <input type="date" name="date" min="<?= $start_date ?>" required>
                             <input type="time" name="time" required>
                         </div>
 
@@ -138,18 +155,21 @@ $schedules = mysqli_query($conn, "SELECT s.*, m.title, t.name as theater_name
                     </form>
                 </div>
 
-                <h3 style="margin-bottom:15px; font-size:18px; color:#CFFF04;">수정 가능한 스케줄 목록</h3>
+                <h3 style="margin-bottom:15px; font-size:18px; color:#CFFF04;">삭제 가능한 스케줄 목록</h3>
                 
                 <div class="schedule-list">
                     <?php if(mysqli_num_rows($schedules) > 0): ?>
                         <?php while($row = mysqli_fetch_assoc($schedules)): 
                             $s_date = date('Y-m-d', strtotime($row['start_time']));
                             $can_delete = ($s_date >= $lock_date);
+                            $korean_day = array("일", "월", "화", "수", "목", "금", "토");
+                            $day_of_week_num = date('w', strtotime($row['start_time'])); 
+                            $korean_day_str = $korean_day[$day_of_week_num];
                         ?>
                         <div class="schedule-item">
                             <div class="info">
                                 <!-- 날짜 및 시간 -->
-                                <strong><?= date('m.d (D) H:i', strtotime($row['start_time'])) ?></strong>
+                                <strong><?= date('m.d', strtotime($row['start_time'])) ?> (<?= $korean_day_str ?>) <?= date('H:i', strtotime($row['start_time'])) ?></strong>
                                 
                                 <!-- 극장 및 상영관 -->
                                 <span style="color:#fff; font-weight:bold;"><?= $row['theater_name'] ?></span>
@@ -169,7 +189,7 @@ $schedules = mysqli_query($conn, "SELECT s.*, m.title, t.name as theater_name
                         <?php endwhile; ?>
                     <?php else: ?>
                         <div style="text-align:center; padding:40px; color:#777; background:#1e1e1e; border-radius:8px;">
-                            수정 가능한 스케줄이 없습니다.
+                            삭제 가능한 스케줄이 없습니다.
                         </div>
                     <?php endif; ?>
                 </div>
