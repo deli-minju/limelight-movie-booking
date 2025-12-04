@@ -1,0 +1,232 @@
+.admin-content {
+    padding: 40px;
+    color: #fff;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.admin-page-title {
+    color: #CFFF04;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.admin-desc {
+    color: #888;
+    margin-bottom: 20px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.form-box {
+    background: #1e1e1e;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-bottom: 40px;
+}
+
+.admin-content input[type="text"],
+.admin-content input[type="number"],
+.admin-content input[type="date"],
+.admin-content input[type="time"],
+.admin-content select {
+    flex: 1;
+    background: #333;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    outline: none;
+    font-family: 'Pretendard', sans-serif;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.admin-content input:focus, 
+.admin-content select:focus {
+    border-color: #CFFF04;
+}
+
+/* 자동완성 배경색 하얗게 변하는 것 방지 */
+.admin-content input:-webkit-autofill,
+.admin-content input:-webkit-autofill:hover, 
+.admin-content input:-webkit-autofill:focus, 
+.admin-content input:-webkit-autofill:active {
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0px 1000px #333 inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* 숫자 입력창 스피너 제거 */
+.admin-content input[type=number]::-webkit-inner-spin-button, 
+.admin-content input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none; 
+    margin: 0; 
+}
+.admin-content input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.admin-content input[type="date"],
+.admin-content input[type="time"],
+.admin-content input[type="checkbox"] {
+    color-scheme: dark;
+    accent-color: #CFFF04;
+}
+
+.file-input-group {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+    color: #eaeaea;
+    font-size: 14px;
+}
+
+.admin-content input[type="file"] {
+    color: #aaa;
+    border: none;
+    background: transparent;
+    padding-left: 0;
+}
+
+.btn-submit {
+    background: #CFFF04;
+    color: #000;
+    border: none;
+    padding: 12px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: background-color 0.2s;
+}
+.btn-submit:hover {
+    background: #b6e710;
+}
+
+.list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.list-table th {
+    text-align: left;
+    padding: 15px;
+    border-bottom: 2px solid #444;
+    color: #CFFF04;
+    font-weight: 600;
+    font-size: 14px;
+}
+.list-table td {
+    padding: 15px;
+    border-bottom: 1px solid #333;
+    color: #ddd;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.btn-del {
+    color: #F33F3F;
+    border: 1px solid #F33F3F;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background-color 0.2s;
+    display: inline-block;
+}
+.btn-del:hover {
+    background: #F33F3F;
+    color: #fff;
+}
+.btn-del.disabled {
+    border-color: #555;
+    color: #555;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.checkbox-label {
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 6px; 
+    cursor: pointer;
+    font-size: 14px;
+    user-select: none;
+    margin-left: 10px;
+}
+.checkbox-label input {
+    width: 18px;
+    height: 18px;
+    flex: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.admin-container {
+    width: 90%; 
+    max-width: 1000px; 
+    margin: 60px auto;
+    display: flex; 
+    flex-direction: column; 
+    gap: 30px;
+}
+
+.admin-menu-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 25px; 
+}
+
+.menu-card {
+    background: #1e1e1e; 
+    border: 1px solid #333; 
+    border-radius: 16px; 
+    padding: 40px 30px;
+    text-align: center; 
+    transition: all 0.3s ease; 
+    text-decoration: none; 
+    color: #fff;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.menu-card:hover { 
+    border-color: #CFFF04; 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 30px rgba(207, 255, 4, 0.1);
+}
+
+.menu-card-icon { 
+    font-size: 48px; 
+    margin-bottom: 10px; 
+}
+
+.menu-title { 
+    font-size: 22px; 
+    font-weight: 700; 
+    color: #CFFF04; 
+}
+
+.menu-desc { 
+    font-size: 15px; 
+    color: #888; 
+    line-height: 1.6; 
+    word-break: keep-all;
+}
