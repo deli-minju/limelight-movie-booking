@@ -33,8 +33,9 @@ function isLiked($conn, $user_db_id, $movie_id) {
 $search_nospace = str_replace(' ', '', $search_term);
 $search_safe = mysqli_real_escape_string($conn, $search_nospace);
 
-$sql = "SELECT * FROM movies 
-        WHERE REPLACE(title, ' ', '') LIKE '%$search_safe%' 
+$sql = "SELECT *, DATEDIFF(release_date, CURDATE()) as d_day
+        FROM movies
+        WHERE REPLACE(title, ' ', '') LIKE '%$search_safe%'
         ORDER BY release_date DESC";
 
 $result = mysqli_query($conn, $sql);
@@ -77,14 +78,12 @@ $today = date("Y-m-d");
                         $active_class = $is_liked ? 'active' : '';
                         $movie_title = addslashes($row['title']);
 
-                        $is_coming_soon = ($row['release_date'] > $today);
-
-                        if ($is_coming_soon) {
+                        if ($row['d_day'] > 0) { 
                             $onclick_action = "alert('개봉 예정인 영화입니다.\\n개봉 후 한줄평을 남길 수 있습니다.');";
                         } elseif ($user_id) {
                             $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
                         } else {
-                             $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
+                            $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
                         }
                 ?>
                     <div class="movie-card">
@@ -99,6 +98,9 @@ $today = date("Y-m-d");
                                         onclick="toggleLike(this, <?= $row['id'] ?>)">
                                     <?= getIconHeartButton() ?>
                                 </button>
+                            <?php endif; ?>
+                            <?php if ($row['release_date'] > $today): ?>
+                                <div class="d-day-label">D-<?= $row['d_day'] ?></div>
                             <?php endif; ?>
                         </div>
                         
