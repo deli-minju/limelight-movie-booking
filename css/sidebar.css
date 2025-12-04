@@ -15,6 +15,30 @@ body {
     font-family: 'Pretendard', sans-serif;
 }
 
+/* 스크롤바가 있다가 없어질 때 레이아웃이 밀리는 것을 방지 */
+html {
+    overflow-y: scroll; 
+}
+
+.layout-wrapper {
+    display: flex;
+    justify-content: flex-start; 
+    width: 100%;
+    max-width: 1425px;
+    min-height: 100vh; 
+    margin: 0 auto;
+    background-color: #000;
+}
+
+.main-content {
+    flex-grow: 1;
+    height: auto; 
+    min-height: 100vh;
+    background: linear-gradient(124deg, #080808 0%, #222 100%);
+    padding: 40px;
+    box-sizing: border-box;
+}
+
 .edit-overlay {
     position: fixed;
     top: 0;
@@ -170,6 +194,8 @@ body.is-editing .my-lists-area {
     text-decoration: none; 
     color: #eaeaea; 
     transition: all 0.3s; 
+
+    white-space: nowrap;
 }
 .menu-icon { 
     width: 24px; 
@@ -264,7 +290,7 @@ body.is-editing .my-lists-area {
     margin-top: 10px;
 }
 
-.btn-edit, .btn-member-list {
+.btn-edit, .btn-admin {
     display: flex; 
     align-items: center; 
     justify-content: center; 
@@ -278,7 +304,7 @@ body.is-editing .my-lists-area {
     box-sizing: border-box;
 }
 
-.btn-edit:focus, .btn-member-list:focus {
+.btn-edit:focus, .btn-admin:focus {
     outline: none;
     box-shadow: none;
 }
@@ -292,7 +318,7 @@ body.is-editing .my-lists-area {
     color: #2c2c2c; 
     display: flex; 
     align-items: center; }
-.btn-member-list { 
+.btn-admin { 
     background: transparent; 
     border: 1px solid #CFFF04; 
     color: #CFFF04; 

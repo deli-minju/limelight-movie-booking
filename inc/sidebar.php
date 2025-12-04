@@ -43,6 +43,8 @@ if (isset($_SESSION['userid'])) {
 }
 
 $current_page = basename($_SERVER['PHP_SELF']); 
+$admin_pages = ['admin.php', 'admin_movies.php', 'admin_theaters.php', 'admin_schedule.php'];
+$is_admin_page = in_array($current_page, $admin_pages);
 ?>
 
 <link rel="stylesheet" href="css/style.css">
@@ -69,32 +71,20 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
         <ul class="menu-list">
             <li class="menu-item <?= ($current_page == 'index.php' || $current_page == '') ? 'active' : '' ?>">
-                <a href="index.php">
-                    <span class="menu-icon"><?= getIconHome() ?></span>
-                    <span class="menu-text">홈</span>
-                </a>
+                <a href="index.php"><span class="menu-icon"><?= getIconHome() ?></span><span class="menu-text">홈</span></a>
             </li>
             
             <li class="menu-item <?= ($current_page == 'reservation.php' || $current_page == 'booking_list.php') ? 'active' : '' ?>">
-                <a href="reservation.php">
-                    <span class="menu-icon"><?= getIconTicket() ?></span>
-                    <span class="menu-text">예매</span>
-                </a>
+                <a href="reservation.php"><span class="menu-icon"><?= getIconTicket() ?></span><span class="menu-text">예매</span></a>
             </li>
 
             <?php if ($is_login): ?>
                 <li class="menu-item <?= ($current_page == 'profile.php') ? 'active' : '' ?>">
-                    <a href="profile.php">
-                        <span class="menu-icon"><?= getIconProfile() ?></span>
-                        <span class="menu-text">프로필</span>
-                    </a>
+                    <a href="profile.php"><span class="menu-icon"><?= getIconProfile() ?></span><span class="menu-text">프로필</span></a>
                 </li>
             <?php else: ?>
                 <li class="menu-item <?= ($current_page == 'login.php' || $current_page == 'register.php') ? 'active' : '' ?>">
-                    <a href="login.php">
-                        <span class="menu-icon"><?= getIconProfile() ?></span>
-                        <span class="menu-text">로그인 • 회원가입</span>
-                    </a>
+                    <a href="login.php"><span class="menu-icon"><?= getIconProfile() ?></span><span class="menu-text">로그인 • 회원가입</span></a>
                 </li>
             <?php endif; ?>
         </ul>
@@ -139,8 +129,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </button>
             
             <?php if ($is_admin): ?>
-            <a href="member-list.php" class="btn-member-list">
-                회원 목록 보기
+            <a href="admin.php" class="btn-admin" style="text-decoration:none;">
+                LimeLight 관리
             </a>
             <?php endif; ?>
         </div>
