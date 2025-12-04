@@ -1,9 +1,12 @@
 .login-page-bg {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    padding-top: 105px;
-    min-height: 100%;
+    
+    min-height: 100vh;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    
     box-sizing: border-box;
 }
 
