@@ -17,13 +17,15 @@ if ($user_id) {
 }
 
 // [무비차트] 현재 상영중인 영화
-$sql_now = "SELECT * FROM movies WHERE is_showing = 1 AND release_date <= CURDATE() ORDER BY release_date DESC";
+$sql_now = "SELECT * FROM movies WHERE is_showing = 1 AND release_date <= CURDATE() AND is_deleted = 0 ORDER BY release_date DESC";
 $result_now = mysqli_query($conn, $sql_now);
 
 // [상영예정] 개봉 예정 영화
 $sql_soon = "SELECT *, DATEDIFF(release_date, CURDATE()) as d_day 
              FROM movies 
-             WHERE release_date > CURDATE() 
+             WHERE release_date > CURDATE()
+             AND is_showing = 1 
+             AND is_deleted = 0
              ORDER BY release_date ASC";
 $result_soon = mysqli_query($conn, $sql_soon);
 

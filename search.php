@@ -35,7 +35,8 @@ $search_safe = mysqli_real_escape_string($conn, $search_nospace);
 
 $sql = "SELECT *, DATEDIFF(release_date, CURDATE()) as d_day
         FROM movies
-        WHERE REPLACE(title, ' ', '') LIKE '%$search_safe%'
+        WHERE REPLACE(title, ' ', '') LIKE '%$search_safe%' 
+        AND is_showing = 1
         ORDER BY release_date DESC";
 
 $result = mysqli_query($conn, $sql);
