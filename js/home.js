@@ -48,12 +48,7 @@ if (sliders.length > 0) {
         slider.addEventListener('mouseup', (e) => {
             isDown = false;
             slider.classList.remove('active');
-            
-            if (!isDragging && e.target.classList.contains('click-trigger')) {
-                const movieId = e.target.getAttribute('data-id');
-                const movieTitle = e.target.getAttribute('data-title');
-                openReviewModal(movieId, movieTitle);
-            }
+            isDragging = false; 
         });
 
         slider.addEventListener('mousemove', (e) => {
@@ -67,6 +62,14 @@ if (sliders.length > 0) {
             if (Math.abs(walk) > 5) {
                 isDragging = true; 
                 slider.scrollLeft = scrollLeft - walk;
+            }
+        });
+
+        slider.addEventListener('click', (e) => {
+            if (isDragging) {
+                e.preventDefault();
+                e.stopPropagation();
+                isDragging = false; 
             }
         });
     });

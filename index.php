@@ -71,14 +71,20 @@ function isLiked($conn, $user_db_id, $movie_id) {
                         <?php while($row = mysqli_fetch_assoc($result_now)): 
                             $is_liked = isLiked($conn, $user_db_id, $row['id']);
                             $active_class = $is_liked ? 'active' : '';
+
+                            $movie_title = addslashes($row['title']);
+                            if ($user_id) {
+                                $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
+                            } else {
+                                $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
+                            }
                         ?>
                         <div class="movie-card">
                             <div class="poster-wrapper">
                                 <img src="<?= $row['poster_img'] ?>" 
-                                     alt="<?= $row['title'] ?>" 
-                                     class="poster-img click-trigger"
-                                     data-id="<?= $row['id'] ?>"
-                                     data-title="<?= htmlspecialchars($row['title']) ?>">
+                                    alt="<?= $row['title'] ?>" 
+                                    class="poster-img click-trigger"
+                                    onclick="<?= $onclick_action ?>">
                                 
                                 <?php if ($user_id): ?>
                                     <button class="btn-like <?= $active_class ?>" 
@@ -106,16 +112,22 @@ function isLiked($conn, $user_db_id, $movie_id) {
                     
                     <div class="slider-track" id="track-soon">
                         <?php while($row = mysqli_fetch_assoc($result_soon)): 
-                             $is_liked = isLiked($conn, $user_db_id, $row['id']);
-                             $active_class = $is_liked ? 'active' : '';
+                            $is_liked = isLiked($conn, $user_db_id, $row['id']);
+                            $active_class = $is_liked ? 'active' : '';
+
+                            $movie_title = addslashes($row['title']);
+                            if ($user_id) {
+                                $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
+                            } else {
+                                $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
+                            }
                         ?>
                         <div class="movie-card">
                             <div class="poster-wrapper">
                                 <img src="<?= $row['poster_img'] ?>" 
-                                     alt="<?= $row['title'] ?>" 
-                                     class="poster-img click-trigger"
-                                     data-id="<?= $row['id'] ?>"
-                                     data-title="<?= htmlspecialchars($row['title']) ?>">
+                                    alt="<?= $row['title'] ?>" 
+                                        class="poster-img click-trigger"
+                                        onclick="<?= $onclick_action ?>">
                                 
                                 <?php if ($user_id): ?>
                                     <button class="btn-like <?= $active_class ?>" 
