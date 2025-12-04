@@ -139,6 +139,7 @@
     font-size: 13px;
     transition: background-color 0.2s;
     display: inline-block;
+    white-space: nowrap;
 }
 .btn-del:hover {
     background: #F33F3F;
@@ -229,4 +230,34 @@
     color: #888; 
     line-height: 1.6; 
     word-break: keep-all;
+}
+
+.btn-status {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 0px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn-status-off {
+    color: #fff;
+    background: #555;
+    border: 1px solid #555;
+}
+.btn-status-off:hover {
+    background: #444;
+}
+
+.btn-status-on {
+    color: #000;
+    background: #CFFF04;
+    border: 1px solid #CFFF04;
+}
+.btn-status-on:hover {
+    background: #b6e710;
 }

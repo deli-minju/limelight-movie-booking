@@ -66,6 +66,20 @@ if (isset($_GET['delete_id'])) {
     exit;
 }
 
+if (isset($_GET['status_id']) && isset($_GET['new_status'])) {
+    $id = (int)$_GET['status_id'];
+    $new_status = (int)$_GET['new_status'];
+
+    $sql = "UPDATE movies SET is_showing = $new_status WHERE id = $id";
+    if (mysqli_query($conn, $sql)) {
+        $status_text = $new_status == 1 ? '상영중' : '종영';
+        echo "<script>alert('상태가 {$status_text}으로 변경되었습니다.'); location.href='admin_movies.php';</script>";
+    } else {
+        echo "<script>alert('상태 변경 실패: " . mysqli_error($conn) . "'); history.back();</script>";
+    }
+    exit;
+}
+
 // 영화 목록 조회 - 최신 등록순
 $result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
 ?>
@@ -87,7 +101,7 @@ $result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
         <main class="main-content">
             <div class="admin-content">
                 <h2 class="admin-page-title">영화 관리</h2>
-                <p class="admin-desc">영화를 등록하거나 삭제합니다.</p>
+                <p class="admin-desc">영화 등록 / 삭제 / 상태 수정</p>
 
                 <div class="form-box">
                     <form method="post" enctype="multipart/form-data">
@@ -122,9 +136,9 @@ $result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
                             <th width="10%">ID</th>
                             <th width="15%">포스터</th>
                             <th width="35%">제목</th>
-                            <th width="20%">개봉일</th>
+                            <th width="15%">개봉일</th>
                             <th width="10%">상태</th>
-                            <th width="10%">관리</th>
+                            <th width="15%">관리</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -148,7 +162,19 @@ $result = mysqli_query($conn, "SELECT * FROM movies ORDER BY id DESC");
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?\n(관련된 상영 시간표 및 예매 내역도 모두 삭제됩니다)')">삭제</a>
+                                <div style="display: flex; gap: 8px; align-items: center;"> 
+                                    <?php if($row['is_showing']): ?>
+                                    <a href="?status_id=<?= $row['id'] ?>&new_status=0" 
+                                       class="btn-status btn-status-off" 
+                                       onclick="return confirm('정말 종영 처리하시겠습니까?\n(상영 시간표에서 제외됩니다)')">종영 처리</a>
+                                    <?php else: ?>
+                                    <a href="?status_id=<?= $row['id'] ?>&new_status=1" 
+                                       class="btn-status btn-status-on" 
+                                       onclick="return confirm('상영중으로 변경하시겠습니까?')">상영 재개</a>
+                                    <?php endif; ?>
+
+                                    <a href="?delete_id=<?= $row['id'] ?>" class="btn-del" onclick="return confirm('정말 삭제하시겠습니까?\n(관련된 상영 시간표 및 예매 내역도 모두 삭제됩니다)')">삭제</a>
+                                </div>
                             </td>
                         </tr>
                         <?php endwhile; ?>

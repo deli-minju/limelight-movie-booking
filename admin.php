@@ -40,7 +40,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                         <span class="menu-card-icon">🎬</span>
                         <span class="menu-title">영화 관리</span>
                         <span class="menu-desc">
-                            영화를 등록하거나 삭제합니다.
+                            영화 등록 / 삭제 / 상태 수정
                         </span>
                     </a>
 
@@ -48,7 +48,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                         <span class="menu-card-icon">🏢</span>
                         <span class="menu-title">지점 관리</span>
                         <span class="menu-desc">
-                            지점을 등록하거나 삭제합니다.
+                            지점 등록 / 삭제
                         </span>
                     </a>
 
@@ -56,7 +56,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                         <span class="menu-card-icon">📅</span>
                         <span class="menu-title">스케줄 관리</span>
                         <span class="menu-desc">
-                            상영 시간표를 편성하거나 삭제합니다.
+                            상영 시간표 편성 / 삭제
                         </span>
                     </a>
                 </div>
