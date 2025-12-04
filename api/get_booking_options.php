@@ -20,7 +20,8 @@ if ($type === 'movies') {
             FROM showtimes s 
             JOIN movies m ON s.movie_id = m.id 
             WHERE s.theater_id = '$theater_id' 
-            AND DATE(s.start_time) = '$date'";
+            AND DATE(s.start_time) = '$date'
+            AND m.is_deleted = 0";
             
     $result = mysqli_query($conn, $sql);
     $data = [];
@@ -39,10 +40,13 @@ if ($type === 'times') {
     $sql = "SELECT s.id, s.start_time, s.screen_name, m.runtime 
             FROM showtimes s 
             JOIN movies m ON s.movie_id = m.id
+            JOIN theaters t ON s.theater_id = t.id
             WHERE s.theater_id = '$theater_id' 
             AND s.movie_id = '$movie_id' 
             AND DATE(s.start_time) = '$date' 
-            ORDER BY s.start_time ASC";
+            AND m.is_deleted = 0 
+            AND t.is_deleted = 0
+            ORDER BY s.start_time ASC";
             
     $result = mysqli_query($conn, $sql);
     $data = [];

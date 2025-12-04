@@ -18,7 +18,7 @@ if (!isset($_SESSION['userid'])) {
 include 'inc/db_conn.php';
 
 // 극장 목록 미리 가져오기
-$sql_theater = "SELECT * FROM theaters ORDER BY name ASC";
+$sql_theater = "SELECT * FROM theaters WHERE is_deleted = 0 ORDER BY name ASC";
 $result_theater = mysqli_query($conn, $sql_theater);
 ?>
 
