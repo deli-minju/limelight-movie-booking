@@ -46,7 +46,7 @@ if ($type === 'times') {
             AND DATE(s.start_time) = '$date' 
             AND m.is_deleted = 0 
             AND t.is_deleted = 0
-            ORDER BY s.start_time ASC";
+            ORDER BY s.start_time ASC";
             
     $result = mysqli_query($conn, $sql);
     $data = [];
