@@ -73,11 +73,8 @@ function isLiked($conn, $user_db_id, $movie_id) {
                             $active_class = $is_liked ? 'active' : '';
 
                             $movie_title = addslashes($row['title']);
-                            if ($user_id) {
-                                $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
-                            } else {
-                                $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
-                            }
+                            $movie_id = $row['id'];
+                            $onclick_action = "checkLoginAndOpenModal({$movie_id}, '$movie_title', " . (int)!!$user_id . ");";
                         ?>
                         <div class="movie-card">
                             <div class="poster-wrapper">
@@ -116,11 +113,8 @@ function isLiked($conn, $user_db_id, $movie_id) {
                             $active_class = $is_liked ? 'active' : '';
 
                             $movie_title = addslashes($row['title']);
-                            if ($user_id) {
-                                $onclick_action = "openReviewModal({$row['id']}, '$movie_title')";
-                            } else {
-                                $onclick_action = "if(confirm('로그인이 필요한 서비스입니다.\\n로그인 페이지로 이동하시겠습니까?')) location.href='login.php';";
-                            }
+                            $movie_id = $row['id'];
+                            $onclick_action = "checkLoginAndOpenModal({$movie_id}, '$movie_title', " . (int)!!$user_id . ");";
                         ?>
                         <div class="movie-card">
                             <div class="poster-wrapper">
