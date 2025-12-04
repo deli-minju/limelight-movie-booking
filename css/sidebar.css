@@ -37,6 +37,8 @@ html {
     background: linear-gradient(124deg, #080808 0%, #222 100%);
     padding: 40px;
     box-sizing: border-box;
+    overflow-y: auto;
+    margin-left: 320px;
 }
 
 .edit-overlay {
@@ -105,10 +107,19 @@ body.is-editing .my-lists-area {
     box-sizing: border-box;
     border-right: 1px solid #333;
     flex-shrink: 0;
-    position: sticky;
+    position: fixed;
     top: 0;
     z-index: 950;
     overflow: hidden; 
+    left: 50%;
+    margin-left: -712.5px;
+}
+
+@media (max-width: 1425px) {
+    .sidebar-container {
+        left: 0;
+        margin-left: 0;
+    }
 }
 
 .logo-area { 
