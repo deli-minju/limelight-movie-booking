@@ -114,7 +114,12 @@ function isLiked($conn, $user_db_id, $movie_id) {
 
                             $movie_title = addslashes($row['title']);
                             $movie_id = $row['id'];
-                            $onclick_action = "checkLoginAndOpenModal({$movie_id}, '$movie_title', " . (int)!!$user_id . ");";
+
+                            if ($row['d_day'] <= 0) {
+                                $onclick_action = "checkLoginAndOpenModal({$movie_id}, '$movie_title', " . (int)!!$user_id . ");";
+                            } else {
+                                $onclick_action = "alert('개봉 예정인 영화입니다.\\n개봉 후 한줄평을 남길 수 있습니다.');";
+                            }
                         ?>
                         <div class="movie-card">
                             <div class="poster-wrapper">
