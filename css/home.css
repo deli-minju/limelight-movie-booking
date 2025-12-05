@@ -16,7 +16,7 @@
     letter-spacing: -1px;
 }
 
-.text-white { color: #EAEAEA; }
+.text-white { color: #F8F8F8; }
 .text-lime { color: #CFFF04; }
 
 .movie-section {
@@ -109,7 +109,7 @@
     height: 280px;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 7px 15px rgba(0,0,0,0.5);
     cursor: pointer;
 }
 
@@ -164,7 +164,7 @@
 
 .movie-title {
     font-size: 16px;
-    color: #EAEAEA;
+    color: #F8F8F8;
     margin: 0;
     white-space: nowrap; 
     overflow: hidden;
@@ -245,7 +245,7 @@
     flex: 1;
     background: #333;
     border: 1px solid #444;
-    color: #eaeaea;
+    color: #F8F8F8;
     border-radius: 8px;
     padding: 12px;
     font-size: 14px;
@@ -287,7 +287,7 @@
 
 .review-list-title {
     font-size: 14px;
-    color: #888;
+    color: #999;
     margin-bottom: 15px;
     font-weight: 600;
 }
@@ -302,7 +302,7 @@
     display: flex;
     justify-content: space-between;
     font-size: 12px;
-    color: #888;
+    color: #999;
     margin-bottom: 8px;
 }
 .review-user { 
@@ -311,7 +311,7 @@
 }
 
 .review-content {
-    color: #eaeaea;
+    color: #F8F8F8;
     font-size: 14px;
     line-height: 1.5;
     white-space: nowrap;
