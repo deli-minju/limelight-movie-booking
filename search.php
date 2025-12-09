@@ -29,18 +29,26 @@ function isLiked($conn, $user_db_id, $movie_id) {
     return mysqli_num_rows($result) > 0;
 }
 
-// 검색 로직
 $search_nospace = str_replace(' ', '', $search_term);
 $search_safe = mysqli_real_escape_string($conn, $search_nospace);
 
+// 검색 로직
 $sql = "SELECT *, DATEDIFF(release_date, CURDATE()) as d_day
         FROM movies
         WHERE REPLACE(title, ' ', '') LIKE '%$search_safe%' 
-        AND is_showing = 1
+        AND is_deleted = 0   /* 삭제된 영화는 제외하고, 종영된 영화는 포함 */
         ORDER BY release_date DESC";
 
 $result = mysqli_query($conn, $sql);
 $count = mysqli_num_rows($result);
+
+if ($search_term == '') {
+    $page_title = "전체 영화 목록";
+    $search_msg = "전체 영화 목록";
+} else {
+    $page_title = "'" . htmlspecialchars($keyword) . "' 검색 결과";
+    $search_msg = "'" . '<span class="highlight">' . htmlspecialchars($keyword) . '</span>' . "' 검색 결과";
+}
 
 $today = date("Y-m-d");
 ?>
@@ -50,7 +58,7 @@ $today = date("Y-m-d");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>'<?= htmlspecialchars($keyword) ?>' 검색 결과 - LimeLight</title>
+    <title><?= $page_title ?> - LimeLight</title>
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/sidebar.css">
@@ -66,7 +74,7 @@ $today = date("Y-m-d");
             
             <div class="search-header">
                 <h2 class="search-result-title">
-                    "<span class="highlight"><?= htmlspecialchars($keyword) ?></span>" 검색 결과
+                    <?= $search_msg ?>
                     <span class="count">(<?= $count ?>건)</span>
                 </h2>
             </div>
