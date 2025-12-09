@@ -3,3 +3,5 @@ db_secrets.php
 .vscode/
 
 /uploads/
+
+/api/api_secret.php
