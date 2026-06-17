@@ -27,7 +27,6 @@
 
 본 리포지토리는 LimeLight 서비스의 웹 프론트엔드 및 백엔드 API 소스 코드를 포함하고 있습니다. 안드로이드 앱과 하나의 MySQL 데이터베이스를 공유하여 유기적인 서비스를 제공하는 **1인 풀스택 개발 프로젝트**입니다.
 
-* **웹 서비스 배포 링크:** [http://devmanjoo.mycafe24.com/](http://devmanjoo.mycafe24.com/)
 * **Android App 리포지토리:** [https://github.com/deli-minju/limelight-android-app](https://github.com/deli-minju/limelight-android-app)
 * **프로젝트 기간:** 2025.11.05 ~ 2025.12.10
 * **개발 인원:** 1인 (Design, Frontend, Backend, Android, DB)
